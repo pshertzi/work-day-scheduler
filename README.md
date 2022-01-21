@@ -1,6 +1,6 @@
 # work-day-scheduler
 
-## URL :
+## URL : https://pshertzi.github.io/work-day-scheduler/
 
 ## discreption
 a calaneder application using HTML CSS powered by Jquery.
