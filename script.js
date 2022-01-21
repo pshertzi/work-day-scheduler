@@ -1,15 +1,14 @@
-// set timeblock using moment.js
-var hour9am = moment().hour(9);
-var hour10am = moment().hour(10);
-var hour11am = moment().hour(11);
-var hour12pm = moment().hour(12);
-var hour1pm = moment().hour(13);
-var hour2pm = moment().hour(14);
-var hour3pm = moment().hour(15);
-var hour4pm = moment().hour(16);
-var hour5pm = moment().hour(17);
-var hour6pm = moment().hour(18);
-var hour7pm = moment().hour(19);
+// Get item from local storage if any
+$("#hour9 .description").val(localStorage.getItem("hour9"));
+$("#hour10 .description").val(localStorage.getItem("hour10"));
+$("#hour11 .description").val(localStorage.getItem("hour11"));
+$("#hour12 .description").val(localStorage.getItem("hour12"));
+$("#hour13 .description").val(localStorage.getItem("hour13"));
+$("#hour14 .description").val(localStorage.getItem("hour14"));
+$("#hour15 .description").val(localStorage.getItem("hour15"));
+$("#hour16 .description").val(localStorage.getItem("hour16"));
+$("#hour17 .description").val(localStorage.getItem("hour17"));
+
 
 //curent day
 var currentDay = moment().format("dddd, MMMM Do, h:mm:ss a");
@@ -18,4 +17,40 @@ var currentDay = moment().format("dddd, MMMM Do, h:mm:ss a");
 $("#currentDay").append(currentDay);
 
 //Assign save btn
+$(".saveBtn").on("click", function() {
+    //get nearby vaule
+    var text = $(this).siblings(".description").val();
+    var time = $(this).parent().attr("id");
 
+    //save text in local storage 
+    localStorage.setItem(time, text);
+})
+
+function hourTracker() {
+//get current number of  hours 
+    var TimeNow = moment().hour();
+
+    //loop over time blocks
+    $(".time-block").each(function(){
+        var blockTime = parseInt($(this).attr("id").split("hour")[1]);
+    
+        //check the time and add the proper background 
+        if (blockTime < TimeNow) {
+            $(this).removeClass("future");
+            $(this).removeClass("present");
+            $(this).addClass("past");
+        }
+        else if (blockTime === TimeNow) {
+            $(this).removeClass("future");
+            $(this).addClass("present");
+            $(this).removeClass("past");
+        }
+        else {
+            $(this).addClass("future");
+            $(this).removeClass("preesnt");
+            $(this).removeClass("past");
+        }
+    })
+}
+    //rerun function
+    hourTracker();
